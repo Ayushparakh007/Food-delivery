@@ -1,12 +1,14 @@
 import React from 'react';
-import { ShoppingBag, Search, Menu } from 'lucide-react';
+import { ShoppingBag, Search, Menu, User } from 'lucide-react';
 
 interface NavbarProps {
   onNavigate: (page: string) => void;
   cartItemCount: number;
+  isLoggedIn: boolean;
+  onLogout: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onNavigate, cartItemCount }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onNavigate, cartItemCount, isLoggedIn, onLogout }) => {
   return (
     <nav className="bg-white shadow-lg">
       <div className="container mx-auto px-4">
@@ -16,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, cartItemCount }) => 
               className="text-2xl font-bold text-orange-600 cursor-pointer"
               onClick={() => onNavigate('home')}
             >
-              FoodHub
+              HungerRush
             </h1>
           </div>
 
@@ -27,8 +29,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, cartItemCount }) => 
             >
               Restaurants
             </button>
-            {/* <button className="text-gray-700 hover:text-orange-600">Offers</button>
-            <button className="text-gray-700 hover:text-orange-600">Help</button> */}
+            <button
+              onClick={() => onNavigate('offers')}
+              className="text-gray-700 hover:text-orange-600"
+            >
+              Offers
+            </button>
+            <button
+              onClick={() => onNavigate('help')}
+              className="text-gray-700 hover:text-orange-600"
+            >
+              Help
+            </button>
             <div className="relative">
               <button
                 onClick={() => onNavigate('cart')}
@@ -42,6 +54,37 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, cartItemCount }) => 
                 )}
               </button>
             </div>
+            {isLoggedIn ? (
+              <div className="relative group">
+                <button
+                  onClick={() => onNavigate('profile')}
+                  className="text-gray-700 hover:text-orange-600"
+                >
+                  <User className="w-6 h-6" />
+                </button>
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
+                  <button
+                    onClick={() => onNavigate('profile')}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  >
+                    Profile
+                  </button>
+                  <button
+                    onClick={onLogout}
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => onNavigate('login')}
+                className="text-gray-700 hover:text-orange-600"
+              >
+                Login
+              </button>
+            )}
           </div>
 
           <div className="md:hidden flex items-center">
@@ -51,4 +94,4 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, cartItemCount }) => 
       </div>
     </nav>
   );
-}
+};

@@ -135,10 +135,10 @@ export const OrderTracking: React.FC = () => {
               <div key={step.id} className="flex items-start gap-4">
                 <div
                   className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors ${step.completed
-                      ? 'bg-orange-600 text-white'
-                      : step.id === 1 && deliveryProgress > 0
-                        ? 'bg-orange-500 text-white'
-                        : 'bg-gray-100 text-gray-400'
+                    ? 'bg-orange-600 text-white'
+                    : step.id === 1 && deliveryProgress > 0
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-gray-100 text-gray-400'
                     }`}
                 >
                   <step.icon className="w-6 h-6" />
